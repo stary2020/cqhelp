@@ -1,69 +1,180 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cqhelp小精灵</title>
-    <script>
-         
-        window.onload = function() {
-             
-             
-            const url = 'https://ryomdpediiufcdvwhbaq.supabase.co/storage/v1/object/public/cqrun/cqhelp.html';
+    <title>春秋小精灵 - 大型武侠Q版网游輔助</title>
+    <style>
+        /* 基础样式 */
+        body {
+            font-family: 'Microsoft YaHei', '微软雅黑', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            color: #5a4a3f;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 主容器 */
+        .game-container {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #d4af37;
+            overflow: hidden;
+            position: relative;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        /* 标题区域 */
+        .game-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .game-title {
+            font-size: 2.8rem;
+            color: #d4af37;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .game-subtitle {
+            font-size: 1.3rem;
+            color: #8b7355;
+            margin-bottom: 20px;
+        }
+
+        /* 游戏图标 */
+        .game-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #d4af37, #f0e68c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            border: 4px solid #a0522d;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 游戏描述 */
+        .game-description {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #6b5b4f;
+        }
+
+        /* 下载按钮 */
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37, #f0e68c);
+            color: white;
+            padding: 15px 50px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            border: none;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+            background: linear-gradient(135deg, #f0e68c, #d4af37);
+        }
+
+        /* 联系区域 */
+        .contact-section {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(240, 230, 200, 0.5);
+            border-radius: 10px;
+            border: 1px solid #d4af37;
+        }
+
+        .contact-title {
+            color: #8b7355;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .qq-group {
+            font-size: 1.2rem;
+            color: #5a4a3f;
+        }
+
+        .qq-group span {
+            color: #12B7F5;
+            font-weight: bold;
+        }
+
+        /* 装饰元素 */
+        .sword-decoration {
+            font-size: 24px;
+            color: #d4af37;
+            margin: 0 5px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .game-container {
+                padding: 30px 20px;
+            }
             
-           
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP錯誤! 狀態碼: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(htmlContent => {
-                    
-                    // 嘗試渲染HTML內容
-                    try {
-                        // 創建一個臨時容器
-                        const tempContainer = document.createElement('div');
-                        
-                        // 注入HTML內容
-                        tempContainer.innerHTML = htmlContent;
-                        
-                        // 將渲染結果顯示在頁面上
-                        const renderArea = document.getElementById('renderArea');
-                        
-                        // 清空之前的內容
-                        while (renderArea.firstChild) {
-                            renderArea.removeChild(renderArea.firstChild);
-                        }
-                        
-                        // 添加新內容
-                        renderArea.appendChild(tempContainer);
-                        
-                        // 更新狀態訊息
-                        document.getElementById('status').textContent = '網頁內容已成功載入並渲染！';
-                        document.getElementById('status').className = 'success';
-                        
-                    } catch (error) {
-                        document.getElementById('status').textContent = `渲染錯誤: ${error.message}`;
-                        document.getElementById('status').className = 'error';
-                    }
-                })
-                .catch(error => {
-                    // 處理錯誤
-                    document.getElementById('status').textContent = `載入失敗: ${error.message}`;
-                    document.getElementById('status').className = 'error';
-                    console.error('抓取失敗:', error);
-                });
-        };
-    </script>
+            .game-title {
+                font-size: 2.2rem;
+            }
+            
+            .download-btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
-<body> 
-    
-    <div> 
-        <div id="renderArea" style="border: 0px solid #ccc; padding: 0px; min-height: 100px;"></div>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <div class="game-icon">🎮</div>
+            <h1 class="game-title">春秋小精灵</h1>
+            <p class="game-subtitle">大型武侠Q版网游輔助 <span class="sword-decoration">⚔</span> 全新启程</p>
+        </div>
+        
+        <p class="game-description">
+            踏入春秋武侠的奇幻世界，体验前所未有的Q版冒险。<br>
+            万人同服，精美画面，丰富玩法，打造属于你的武侠传奇！
+        </p>
+        
+        <div style="text-align: center;">
+            <a href="https://ryomdpediiufcdvwhbaq.supabase.co/storage/v1/object/public/cqrun/cqhelp2015.zip" class="download-btn">
+                <span class="sword-decoration">⚔</span> 立即下载 <span class="sword-decoration">⚔</span>
+            </a>
+        </div>
+        
+        <div class="contact-section">
+            <h3 class="contact-title">加入我们的江湖</h3>
+            <p class="qq-group">官方QQ群：<span>884363766</span></p>
+        </div>
     </div>
-    
-    
 </body>
 </html>
