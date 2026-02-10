@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cqhelp小精灵</title>
+    <script>
+         
+        window.onload = function() {
+             
+             
+            const url = 'https://ryomdpediiufcdvwhbaq.supabase.co/storage/v1/object/public/cqrun/cqhelp.html';
+            
+           
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP錯誤! 狀態碼: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(htmlContent => {
+                    
+                    // 嘗試渲染HTML內容
+                    try {
+                        // 創建一個臨時容器
+                        const tempContainer = document.createElement('div');
+                        
+                        // 注入HTML內容
+                        tempContainer.innerHTML = htmlContent;
+                        
+                        // 將渲染結果顯示在頁面上
+                        const renderArea = document.getElementById('renderArea');
+                        
+                        // 清空之前的內容
+                        while (renderArea.firstChild) {
+                            renderArea.removeChild(renderArea.firstChild);
+                        }
+                        
+                        // 添加新內容
+                        renderArea.appendChild(tempContainer);
+                        
+                        // 更新狀態訊息
+                        document.getElementById('status').textContent = '網頁內容已成功載入並渲染！';
+                        document.getElementById('status').className = 'success';
+                        
+                    } catch (error) {
+                        document.getElementById('status').textContent = `渲染錯誤: ${error.message}`;
+                        document.getElementById('status').className = 'error';
+                    }
+                })
+                .catch(error => {
+                    // 處理錯誤
+                    document.getElementById('status').textContent = `載入失敗: ${error.message}`;
+                    document.getElementById('status').className = 'error';
+                    console.error('抓取失敗:', error);
+                });
+        };
+    </script>
+</head>
+<body> 
+    
+    <div> 
+        <div id="renderArea" style="border: 0px solid #ccc; padding: 0px; min-height: 100px;"></div>
+    </div>
+    
+    
+</body>
+</html>
